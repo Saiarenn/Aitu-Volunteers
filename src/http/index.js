@@ -14,31 +14,31 @@ const authInterceptor = config => {
     return config
 }
 
-$authHost.interceptors.response.use(
-    (response) => {
-        return response;
-    },
-    async (error) => {
-        const originalRequest = error.config;
-        try {
-            if (error.response.status === 401 && !originalRequest._retry) {
-                originalRequest._retry = true;
-
-                const {data} = await $host.post('api/v1/auth/refresh')
-                localStorage.setItem('token', data.accessToken)
-
-                originalRequest.headers.authorization = 'Bearer ' + data.accessToken;
-
-                return $host(originalRequest);
-            }
-        } catch (refreshError) {
-            console.error('Error refreshing token:', refreshError);
-            return Promise.reject(refreshError);
-        }
-
-        return Promise.reject(error);
-    }
-)
+// $authHost.interceptors.response.use(
+//     (response) => {
+//         return response;
+//     },
+//     async (error) => {
+//         const originalRequest = error.config;
+//         try {
+//             if (error.response.status === 401 && !originalRequest._retry) {
+//                 originalRequest._retry = true;
+//
+//                 const {data} = await $host.post('api/v1/auth/refresh')
+//                 localStorage.setItem('token', data.accessToken)
+//
+//                 originalRequest.headers.authorization = 'Bearer ' + data.accessToken;
+//
+//                 return $host(originalRequest);
+//             }
+//         } catch (refreshError) {
+//             console.error('Error refreshing token:', refreshError);
+//             return Promise.reject(refreshError);
+//         }
+//
+//         return Promise.reject(error);
+//     }
+// )
 
 $authHost.interceptors.request.use(authInterceptor)
 

@@ -3,14 +3,17 @@ import React, {useContext, useState} from "react";
 import {Button, Card, Container, Form} from "react-bootstrap";
 import {Context} from "..";
 import {registration} from "../http/UserAPI";
+import {useNavigate} from "react-router-dom";
+import {HOME_ROUTE} from "../utils/consts";
 
 const Registration = observer(() => {
-    const {user} = useContext(Context)
-    const [phone, setPhone] = useState('')
-    const [IIN, setIIN] = useState('')
-    const [gender, setGender] = useState('Male')
-    const [name, setName] = useState('')
-    const [surname, setSurname] = useState('')
+    const navigate = useNavigate();
+    const {user} = useContext(Context);
+    const [phone, setPhone] = useState('');
+    const [IIN, setIIN] = useState('');
+    const [gender, setGender] = useState('Male');
+    const [name, setName] = useState('');
+    const [surname, setSurname] = useState('');
 
     const click = async () => {
         try {
@@ -18,6 +21,9 @@ const Registration = observer(() => {
             data = await registration(name, surname, gender, IIN, phone)
             console.log(data)
             user.setUser(data)
+            user.setIsAuth(true)
+            navigate(HOME_ROUTE)
+            console.log(user.isAuth)
         } catch (e) {
             alert(e)
         }
@@ -62,7 +68,7 @@ const Registration = observer(() => {
                             id="male"
                             label="Male"
                             name="gender"
-                            value="male"
+                            value="Male"
                             checked={gender === 'Male'}
                             onChange={e => setGender(e.target.value)}
                         />
@@ -71,19 +77,19 @@ const Registration = observer(() => {
                             id="female"
                             label="Female"
                             name="gender"
-                            value="female"
+                            value="Female"
                             checked={gender === 'Female'}
                             onChange={e => setGender(e.target.value)}
                         />
                     </Container>
 
-                        <Button
-                            className="mt-3 align-self-end"
-                            variant={"outline-success"}
-                            onClick={click}
-                        >
-                            Sign Up
-                        </Button>
+                    <Button
+                        className="mt-3 align-self-end"
+                        variant={"outline-success"}
+                        onClick={click}
+                    >
+                        Sign Up
+                    </Button>
                 </Form>
             </Card>
         </Container>

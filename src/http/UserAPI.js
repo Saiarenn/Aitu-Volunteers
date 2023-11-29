@@ -3,7 +3,7 @@ import { jwtDecode } from "jwt-decode";
 
 export const registration = async (firstname, lastname, gender, iin, phone) => {
     const { data } = await $authHost.post('api/v1/auth/registration', { firstname, lastname, gender, iin, phone })
-    return jwtDecode(data)
+    return data
 }
 
 export const login = async (code) => {
