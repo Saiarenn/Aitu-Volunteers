@@ -20,11 +20,12 @@ export const publicRoutes = [
         path: REGISTRATION_ROUTE,
         component: Registration,
     },
-]
-
-export const authRoutes = [
     {
         path: HOME_ROUTE,
         component: Home,
     },
+]
+
+export const authRoutes = [
+
 ]

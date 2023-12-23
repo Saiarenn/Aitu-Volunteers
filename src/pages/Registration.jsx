@@ -23,7 +23,6 @@ const Registration = observer(() => {
             user.setUser(data)
             user.setIsAuth(true)
             navigate(HOME_ROUTE)
-            console.log(user.isAuth)
         } catch (e) {
             alert(e)
         }

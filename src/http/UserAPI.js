@@ -11,3 +11,7 @@ export const login = async (code) => {
     localStorage.setItem('token', data.id_token)
     return jwtDecode(data.id_token)
 }
+
+export const check = async () => {
+    const { data } = await $authHost.get(`defuser`)
+}
